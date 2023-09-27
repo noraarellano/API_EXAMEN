@@ -36,7 +36,7 @@ app.get('/socios/v1/libros', (req,res) => {
 
 //GET - libro por su ID
 app.get('/socios/v1/libros/:id', (req,res) => {
-    //Solo una categoria
+    //Solo un libro
     const id = req.params.id;
     //Programación Funcional
     const libro = libros.find(libro=>libro.id==id)
@@ -85,7 +85,7 @@ app.post('/socios/v1/libros', (req,res) => {
                 libro:libro
             })
         }else{
-            //Error del servidor al no poder crearse la categoria
+            //Error del servidor al no poder agregar el libro
             res.status(500).json({
                 estado:0,
                 mensaje:"Libro no agregado por un error desconocido",
@@ -113,8 +113,8 @@ app.put('/socios/v1/libros/:id', (req,res) => {
         const posActualizar = libros.findIndex(libro => libro.id==id)
         if(posActualizar!= -1)
         {
-            //Si encontro la categoria con el id buscado
-            //Actualizar la categoria
+            //Si encontro el libro con el id buscado
+            //Actualizar el libro
             libros[posActualizar].titulo=titulo;
             libros[posActualizar].autor=autor;
             libros[posActualizar].genero=genero;
@@ -127,7 +127,7 @@ app.put('/socios/v1/libros/:id', (req,res) => {
         }
         else
         {
-            //No se encontro la categoria del id buscado
+            //No se encontro el libro del id buscado
             res.status(404).json({
                 estado:0,
                 mensaje:"Libro no encontrado"
@@ -143,14 +143,14 @@ app.delete('/socios/v1/libros/:id', (req,res) => {
     const {id} = req.params;
     const indiceEliminar = libros.findIndex(libro => libro.id==id)
     if(indiceEliminar!=-1){
-        //Borrar la categoria
+        //Borrar el libro
         libros.splice(indiceEliminar, 1);
         res.status(201).json({
             estado:1,
             mensaje:"Libro eliminado con éxito"
         })
     }else{
-        //Categoria no encontrada
+        //Libro no encontrado
         res.status(404).json({
             estado:0,
             mensaje:"Libro no encontrado"
